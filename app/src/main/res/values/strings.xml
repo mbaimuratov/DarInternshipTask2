@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DarInternshipTask2</string>
+    <string name="add_student">Add student</string>
+    <string name="go_to_list">Go to list</string>
+</resources>
