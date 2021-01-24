@@ -7,19 +7,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class StudentListActivity : AppCompatActivity() {
+
+    private val STUDENT_LIST_KEY = "list_of_students"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_student_list)
 
-        val studentList = intent.getParcelableArrayListExtra<Student>("list_of_students")
+        val studentList = intent.getParcelableArrayListExtra<Student>(STUDENT_LIST_KEY)
 
         val recyclerView = findViewById<RecyclerView>(R.id.rv_students)
 
-        val studentAdapter = StudentsAdapter(studentList)
-
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        recyclerView.adapter = studentAdapter
+        recyclerView.adapter = StudentsAdapter(studentList)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

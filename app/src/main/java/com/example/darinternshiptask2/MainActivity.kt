@@ -13,6 +13,8 @@ import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
 
+    val STUDENT_LIST_KEY: String = "list_of_students"
+
     private lateinit var studentList: ArrayList<Student>
     private lateinit var nameEditText: EditText
     private lateinit var surnameEditText: EditText
@@ -22,17 +24,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if (savedInstanceState != null) {
-            studentList = savedInstanceState.getParcelableArrayList("list_of_students")!!
+        studentList = if (savedInstanceState != null) {
+            savedInstanceState.getParcelableArrayList(STUDENT_LIST_KEY)!!
         } else {
-            studentList = ArrayList()
+            ArrayList()
         }
 
         nameEditText = findViewById(R.id.et_name)
         surnameEditText = findViewById(R.id.et_surname)
 
         studentNumberTextView = findViewById(R.id.tv_student_count)
-
         studentNumberTextView.text = studentList.size.toString()
 
         findViewById<Button>(R.id.action_add_student).setOnClickListener {
@@ -54,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.action_to_list_of_students).setOnClickListener {
             val intent = Intent(this, StudentListActivity::class.java)
 
-            intent.putParcelableArrayListExtra("list_of_students", studentList)
+            intent.putParcelableArrayListExtra(STUDENT_LIST_KEY, studentList)
 
             startActivity(intent)
         }
@@ -72,6 +73,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelableArrayList("list_of_students", studentList)
+        outState.putParcelableArrayList(STUDENT_LIST_KEY, studentList)
     }
 }
